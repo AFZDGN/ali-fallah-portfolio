@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>علی فلاح زادگان — طراح گرافیک</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:auto; }
+  body{ margin:0; background:#070914; }
+  #root{ --accent:#37F5FF; --accent2:#5A7CFF; --accent3:#B45CFF;
+    --text:#ffffff; --dim:rgba(255,255,255,.72); --dim2:rgba(255,255,255,.6); --dim3:rgba(255,255,255,.45);
+    --glass:rgba(255,255,255,.06); --glass2:rgba(255,255,255,.1); --border:rgba(255,255,255,.12); --border2:rgba(255,255,255,.16);
+    --bg1:#070914; --bg2:#0b1024; --bg3:#0a0e1f; --accentText:#37F5FF;
+    --cardGrad:linear-gradient(135deg,rgba(255,255,255,.1) 0%,rgba(255,255,255,.04) 100%);
+    --shadow:0 24px 60px rgba(0,0,0,.42); --navBg:rgba(255,255,255,.06); --glowMaster:1; --innerHi:rgba(255,255,255,.22); }
+  #root[data-theme="light"]{ --text:#0b1230; --dim:rgba(11,18,48,.7); --dim2:rgba(11,18,48,.55); --dim3:rgba(11,18,48,.4);
+    --glass:rgba(255,255,255,.62); --glass2:rgba(255,255,255,.82); --border:rgba(11,18,48,.1); --border2:rgba(11,18,48,.14);
+    --bg1:#eef1fb; --bg2:#e6ebf9; --bg3:#edf0fc; --accentText:#0e7490;
+    --cardGrad:linear-gradient(135deg,rgba(255,255,255,.92) 0%,rgba(255,255,255,.62) 100%);
+    --shadow:0 24px 60px rgba(60,80,160,.16); --navBg:rgba(255,255,255,.66); --glowMaster:.5; --innerHi:rgba(255,255,255,.9); }
+  ::selection{ background:#37F5FF; color:#070914; }
+  ::-webkit-scrollbar{ width:10px; }
+  ::-webkit-scrollbar-track{ background:transparent; }
+  ::-webkit-scrollbar-thumb{ background:rgba(120,140,200,.3); border-radius:10px; }
+  ::-webkit-scrollbar-thumb:hover{ background:rgba(55,245,255,.5); }
+  input::placeholder, textarea::placeholder{ color:var(--dim3); }
+  @media (pointer:fine){ #root, #root *{ cursor:none !important; } }
+  @keyframes floatA{ 0%,100%{ transform:translate(0,0) scale(1);} 50%{ transform:translate(46px,-34px) scale(1.1);} }
+  @keyframes floatB{ 0%,100%{ transform:translate(0,0) scale(1);} 50%{ transform:translate(-54px,42px) scale(1.14);} }
+  @keyframes floatC{ 0%,100%{ transform:translate(0,0) scale(1);} 50%{ transform:translate(34px,54px) scale(1.06);} }
+  @keyframes popIn{ from{ opacity:0; transform:translateY(18px) scale(.96);} to{ opacity:1; transform:translateY(0) scale(1);} }
+  @keyframes dotPulse{ 0%,100%{ box-shadow:0 0 0 0 rgba(55,245,255,.5);} 50%{ box-shadow:0 0 0 7px rgba(55,245,255,0);} }
+  @keyframes marquee{ from{ transform:translateX(0);} to{ transform:translateX(-50%);} }
+  @keyframes preSpin{ to{ transform:rotate(360deg);} }
+  @keyframes preBar{ from{ width:0;} to{ width:100%;} }
+  @keyframes shine{ from{ transform:translateX(-130%) skewX(-18deg);} to{ transform:translateX(330%) skewX(-18deg);} }
+  @keyframes preHide{ 0%,72%{ opacity:1; visibility:visible;} 100%{ opacity:0; visibility:hidden;} }
+  [data-reveal]{ opacity:0; transform:translateY(34px); transition:opacity .85s cubic-bezier(.2,.7,.2,1), transform .85s cubic-bezier(.2,.7,.2,1); }
+  [data-reveal][data-revealed]{ opacity:1 !important; transform:none !important; }
+  .navlink{ position:relative; }
+  .navlink::after{ content:""; position:absolute; right:18px; left:18px; bottom:6px; height:2px; border-radius:2px; background:linear-gradient(90deg,var(--accent),var(--accent2)); transform:scaleX(0); transform-origin:right; transition:transform .35s cubic-bezier(.2,.7,.2,1); }
+  .navlink:hover::after{ transform:scaleX(1); }
+  .work-card .wc-img{ transition:transform .6s cubic-bezier(.2,.7,.2,1); }
+  .work-card:hover .wc-img{ transform:scale(1.09); }
+  .work-card .wc-view{ opacity:0; transform:translateY(14px); transition:opacity .4s ease, transform .4s cubic-bezier(.2,.7,.2,1); }
+  .work-card:hover .wc-view{ opacity:1; transform:none; }
+  .work-card .wc-spot{ opacity:0; transition:opacity .35s ease; }
+  .work-card:hover .wc-spot{ opacity:1; }
+  .filter-btn{ transition:all .28s cubic-bezier(.2,.7,.2,1); }
+  .svc-card .svc-img{ transition:transform .6s cubic-bezier(.2,.7,.2,1); }
+  .svc-card:hover .svc-img{ transform:scale(1.08); }
+  .svc-card:hover{ border-color:rgba(55,245,255,.4) !important; box-shadow:0 1px 0 var(--innerHi) inset,0 30px 70px rgba(0,0,0,.5),0 0 36px rgba(55,245,255,.14) !important; }
+  .tool-card .tool-logo{ transition:transform .4s cubic-bezier(.2,.7,.2,1), filter .4s ease; }
+  .tool-card:hover .tool-logo{ transform:scale(1.14); filter:drop-shadow(0 0 13px var(--brand,#37F5FF)); }
+  .tool-card .tool-brandglow{ opacity:0; transition:opacity .5s ease; }
+  .tool-card:hover .tool-brandglow{ opacity:.85; }
+  .tool-card .tool-spot{ opacity:0; transition:opacity .4s ease; }
+  .tool-card:hover .tool-spot{ opacity:1; }
+  .tool-card:hover{ border-color:color-mix(in srgb, var(--brand,#37F5FF) 50%, transparent) !important; box-shadow:0 1px 0 var(--innerHi) inset, var(--shadow), 0 0 32px color-mix(in srgb, var(--brand,#37F5FF) 24%, transparent) !important; }
+  .shine{ position:relative; overflow:hidden; }
+  .shine::after{ content:""; position:absolute; top:-40%; bottom:-40%; left:0; width:38%; background:linear-gradient(90deg,transparent,rgba(255,255,255,.5),transparent); transform:translateX(-130%) skewX(-18deg); pointer-events:none; }
+  .shine:hover::after{ animation:shine .85s ease; }
+  .scale-in{ transform:scale(1.14); transition:transform 1.15s cubic-bezier(.2,.7,.2,1); will-change:transform; }
+  [data-revealed] .scale-in{ transform:scale(1) !important; }
+  .lb-nav{ transition:all .25s; }
+  .lb-nav:hover{ background:rgba(55,245,255,.18); border-color:rgba(55,245,255,.5); }
+  .lb-close:hover{ background:rgba(255,80,80,.2); border-color:rgba(255,120,120,.5); }
+  .social-link{ transition:all .25s; }
+  .social-link:hover{ background:rgba(55,245,255,.14); border-color:rgba(55,245,255,.4); }
+  input:focus, textarea:focus{ border-color:rgba(55,245,255,.5) !important; }
+  [data-tilt],[data-magnetic]{ will-change:transform; backface-visibility:hidden; }
+  .tool-card,.work-card,.svc-card{ will-change:transform; transition:transform .25s cubic-bezier(.2,.7,.2,1), box-shadow .4s ease, border-color .4s ease; }
+  @media (max-width:1120px){
+    .hero-flex, .about-flex { flex-direction:column !important; gap:44px !important; }
+    .hero-flex > div, .about-flex > div { flex:1 1 auto !important; width:100% !important; max-width:560px !important; }
+    .hero-h1 { font-size:58px !important; }
+    .tools-grid { grid-template-columns:repeat(2,1fr) !important; }
+    .work-grid { grid-template-columns:repeat(2,1fr) !important; }
+    .contact-flex { flex-direction:column !important; }
+    .contact-flex > div { flex:1 1 auto !important; }
+  }
+  @media (max-width:840px){
+    .lightbox-panel { flex-direction:column !important; max-height:92vh !important; }
+    .work-grid, .services-grid { grid-template-columns:1fr !important; }
+  }
+  @media (prefers-reduced-motion:reduce){ *{ animation-duration:.01ms !important; transition-duration:.01ms !important; } }
+</style>
+</head>
+<body>
+<div id="root" data-theme="dark" dir="rtl" style="position:relative; min-height:100vh; overflow-x:hidden; background:linear-gradient(160deg,var(--bg1) 0%,var(--bg2) 48%,var(--bg3) 100%); color:var(--text); font-family:Vazirmatn,sans-serif; -webkit-font-smoothing:antialiased; transition:background .5s ease, color .5s ease;">
+
+  <!-- PRELOADER -->
+  <div data-preloader style="position:fixed; inset:0; z-index:3000; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:30px; background:linear-gradient(160deg,#070914,#0b1024); transition:opacity .7s ease, visibility .7s ease; animation:preHide 2.1s ease forwards;">
+    <div style="position:relative; width:96px; height:96px; display:flex; align-items:center; justify-content:center;">
+      <div style="position:absolute; inset:0; border-radius:50%; border:2px solid rgba(255,255,255,.08); border-top-color:#37F5FF; border-right-color:#5A7CFF; animation:preSpin 1s linear infinite;"></div>
+      <img src="assets/logo-brand.png" alt="Ali Fallah" style="width:62px; height:62px; border-radius:0; display:flex; align-items:center; justify-content:center; background:transparent; box-shadow:0 10px 30px rgba(55,245,255,.4); object-fit:contain;">
+    </div>
+    <div style="font-size:15px; font-weight:700; letter-spacing:2px; color:#fff;">علی فلاح زادگان</div>
+    <div style="width:170px; height:3px; border-radius:3px; background:rgba(255,255,255,.1); overflow:hidden;">
+      <div style="height:100%; background:linear-gradient(90deg,#37F5FF,#B45CFF); animation:preBar 1.4s cubic-bezier(.5,0,.2,1) forwards;"></div>
+    </div>
+  </div>
+
+  <!-- TOP SCROLL PROGRESS -->
+  <div data-progress-bar style="position:fixed; top:0; right:0; height:3px; width:0%; z-index:2600; background:linear-gradient(90deg,#B45CFF,#5A7CFF,#37F5FF); box-shadow:0 0 12px rgba(55,245,255,.6); pointer-events:none;"></div>
+
+  <!-- CUSTOM CURSOR -->
+  <div data-cursor-ring style="position:fixed; top:0; left:0; width:38px; height:38px; margin:-19px 0 0 -19px; border:1.5px solid var(--accent); border-radius:50%; pointer-events:none; z-index:2500; will-change:transform; opacity:0; transition:opacity .4s ease;">
+    <div data-cursor-fill style="position:absolute; inset:0; border-radius:50%; background:var(--accent); opacity:.12; transform:scale(0); transition:transform .35s cubic-bezier(.2,.7,.2,1);"></div>
+  </div>
+  <div data-cursor-dot style="position:fixed; top:0; left:0; width:6px; height:6px; margin:-3px 0 0 -3px; border-radius:50%; pointer-events:none; z-index:2600; will-change:transform; opacity:0; background:var(--accent); transition:opacity .4s ease, width .25s ease, height .25s ease, margin .25s ease;"></div>
+
+  <!-- BACKGROUND GLOWS -->
+  <div data-parallax-layer style="position:fixed; inset:0; overflow:hidden; z-index:0; pointer-events:none; opacity:var(--glowMaster); transition:opacity .5s;">
+    <div data-depth="0.10" style="position:absolute; width:620px; height:620px; left:-160px; top:-120px; border-radius:50%; background:var(--accent); opacity:.18; filter:blur(120px); animation:floatA 16s ease-in-out infinite;"></div>
+    <div data-depth="0.06" style="position:absolute; width:560px; height:560px; right:-180px; top:60px; border-radius:50%; background:var(--accent2); opacity:.2; filter:blur(120px); animation:floatB 19s ease-in-out infinite;"></div>
+    <div data-depth="0.14" style="position:absolute; width:520px; height:520px; left:8%; top:1700px; border-radius:50%; background:var(--accent3); opacity:.16; filter:blur(130px); animation:floatC 21s ease-in-out infinite;"></div>
+    <div data-depth="0.08" style="position:absolute; width:480px; height:480px; right:4%; top:2600px; border-radius:50%; background:var(--accent); opacity:.13; filter:blur(130px); animation:floatA 24s ease-in-out infinite;"></div>
+    <div data-depth="0.12" style="position:absolute; width:560px; height:560px; left:-120px; bottom:200px; border-radius:50%; background:var(--accent2); opacity:.15; filter:blur(130px); animation:floatB 22s ease-in-out infinite;"></div>
+  </div>
+
+  <div style="position:relative; z-index:2; max-width:1240px; margin:0 auto; padding:0 40px;">
+
+    <!-- NAV -->
+    <nav style="position:fixed; top:22px; left:0; right:0; z-index:60; width:min(1160px,calc(100% - 80px)); margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:24px; padding:14px 16px 14px 22px; border-radius:24px; background:var(--navBg); border:1px solid var(--border); box-shadow:0 8px 40px rgba(0,0,0,.22); backdrop-filter:blur(22px); -webkit-backdrop-filter:blur(22px);">
+      <div style="display:flex; align-items:center; gap:14px;">
+        <img src="assets/logo-brand.png" alt="Ali Fallah" style="width: 46px; height: 46px; border-radius: 5px 5px 5px 0px; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 20px rgba(55,245,255,.35); object-fit: contain; background: transparent">
+        <div style="display:flex; flex-direction:column; gap:2px;">
+          <span style="font-size:16px; font-weight:900;">علی فلاح زادگان</span>
+          <span style="font-size:11px; font-weight:500; color:var(--dim2); direction:ltr; text-align:right;">Graphic Designer / Visual Creator</span>
+        </div>
+      </div>
+      <div style="display:flex; align-items:center; gap:4px;">
+        <a href="#home" class="navlink" data-magnetic style="padding:10px 18px; border-radius:18px; color:var(--accentText); font-size:15px; font-weight:700; text-decoration:none;">خانه</a>
+        <a href="#about" class="navlink" data-magnetic style="padding:10px 18px; border-radius:18px; color:var(--dim); font-size:15px; font-weight:600; text-decoration:none;">درباره من</a>
+        <a href="#work" class="navlink" data-magnetic style="padding:10px 18px; border-radius:18px; color:var(--dim); font-size:15px; font-weight:600; text-decoration:none;">نمونه کار</a>
+        <a href="#services" class="navlink" data-magnetic style="padding:10px 18px; border-radius:18px; color:var(--dim); font-size:15px; font-weight:600; text-decoration:none;">خدمات</a>
+        <button data-theme-toggle data-magnetic title="تغییر تم" style="width:44px; height:44px; margin-right:6px; border-radius:16px; border:1px solid var(--border); background:var(--glass); color:var(--text); display:flex; align-items:center; justify-content:center;"></button>
+        <a href="#contact" data-magnetic class="shine" style="padding:11px 22px; border-radius:18px; color:#070914; background:linear-gradient(135deg,var(--accent),var(--accent2)); font-size:15px; font-weight:800; text-decoration:none; box-shadow:0 6px 20px rgba(55,245,255,.3);">تماس</a>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <section id="home" class="hero-flex" style="display:flex; align-items:center; gap:64px; padding:152px 0 70px;">
+      <div data-reveal style="flex:1;">
+        <div style="display:inline-flex; align-items:center; gap:12px; padding:9px 20px; border-radius:999px; background:var(--glass); border:1px solid var(--border); margin-bottom:28px;">
+          <span style="width:9px; height:9px; border-radius:50%; background:var(--accent); animation:dotPulse 2s infinite;"></span>
+          <span style="font-size:14px; font-weight:700;"><span style="color:var(--accentText);">طراح گرافیک</span>، برندینگ و محتوای بصری</span>
+        </div>
+        <h1 class="hero-h1" style="font-size:74px; line-height:1.12; font-weight:800; margin:0 0 26px; letter-spacing:-1px;">
+          <span style="display:block; overflow:hidden;"><span data-line style="display:inline-block;">طراحی‌ای که</span></span>
+          <span style="display:block; overflow:hidden;"><span data-line data-line-delay="120" style="display:inline-block; color:var(--accentText);">دیده می‌شود.</span></span>
+        </h1>
+        <p style="max-width:520px; font-size:17px; line-height:2; color:var(--dim); margin:0 0 38px;">من علی فلاح زادگان هستم؛ طراح گرافیک با تمرکز روی ساخت هویت بصری، طراحی پوستر، محتوای شبکه‌های اجتماعی و تجربه‌های بصری مدرن. طرح‌هایی می‌سازم که فقط زیبا نیستند، بلکه پیام برند را واضح و ماندگار منتقل می‌کنند.</p>
+        <div style="display:flex; gap:16px; margin-bottom:54px;">
+          <a href="#work" data-magnetic class="shine" style="display:inline-flex; align-items:center; gap:10px; padding:16px 30px; border-radius:999px; background:linear-gradient(135deg,var(--accent),var(--accent2)); color:#070914; font-size:16px; font-weight:800; text-decoration:none; box-shadow:0 10px 30px rgba(55,245,255,.32);">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+            مشاهده نمونه کارها
+          </a>
+          <a href="#contact" data-magnetic style="display:inline-flex; align-items:center; gap:10px; padding:16px 30px; border-radius:999px; background:var(--glass); border:1px solid var(--border2); color:var(--text); font-size:16px; font-weight:800; text-decoration:none;">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4Z"/></svg>
+            شروع همکاری
+          </a>
+        </div>
+        <div data-stats style="display:flex; gap:16px;"></div>
+      </div>
+      <div data-reveal data-reveal-delay="160" style="flex:0 0 470px; position:relative;">
+        <div style="position:absolute; inset:-30px; border-radius:48px; background:linear-gradient(135deg,rgba(55,245,255,.4),rgba(180,92,255,.4)); filter:blur(50px); opacity:.55;"></div>
+        <div data-tilt style="position:relative; padding:14px; border-radius:42px; background:var(--glass); border:1px solid var(--border2); box-shadow:var(--shadow); backdrop-filter:blur(20px); transform-style:preserve-3d; transition:transform .25s cubic-bezier(.2,.7,.2,1);">
+          <img src="assets/portrait.jpg" alt="علی فلاح زادگان" class="scale-in" style="width:100%; height:560px; object-fit:cover; border-radius:30px; display:block;">
+          <div style="position:absolute; right:34px; bottom:34px; display:flex; align-items:center; gap:12px; padding:14px 20px; border-radius:20px; background:rgba(7,9,20,.6); border:1px solid rgba(255,255,255,.14); backdrop-filter:blur(16px); transform:translateZ(40px);">
+            <span style="width:10px; height:10px; border-radius:50%; background:#37F5FF; box-shadow:0 0 14px #37F5FF;"></span>
+            <span style="font-size:14px; font-weight:700; color:#fff;">آماده پروژه‌های جدید</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MARQUEE -->
+    <div data-reveal style="margin:24px 0 30px; padding:22px 0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); overflow:hidden; -webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent); mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);">
+      <div data-marquee style="display:flex; gap:0; width:max-content; direction:ltr; animation:marquee 30s linear infinite; opacity:.7;"></div>
+    </div>
+
+    <!-- ABOUT -->
+    <section id="about" class="about-flex" style="display:flex; align-items:center; gap:64px; padding:90px 0;">
+      <div data-reveal data-tilt style="flex:0 0 420px; position:relative; transform-style:preserve-3d; transition:transform .25s cubic-bezier(.2,.7,.2,1);">
+        <div style="position:absolute; inset:-26px; border-radius:40px; background:linear-gradient(135deg,rgba(90,124,255,.4),rgba(55,245,255,.35)); filter:blur(46px); opacity:.5;"></div>
+        <img src="assets/about.png" alt="درباره من" class="scale-in" style="position:relative; width:100%; height:520px; object-fit:cover; border-radius:32px; border:1px solid var(--border2); box-shadow:var(--shadow); display:block;">
+      </div>
+      <div data-reveal data-reveal-delay="140" style="flex:1;">
+        <div style="display:inline-flex; align-items:center; gap:10px; padding:8px 16px; border-radius:999px; background:var(--glass); border:1px solid var(--border); margin-bottom:22px;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M5.5 21a8 8 0 0 1 13 0"/></svg>
+          <span style="font-size:13px; font-weight:800; color:var(--accentText);">درباره من</span>
+        </div>
+        <h2 style="font-size:52px; line-height:1.18; font-weight:800; margin:0 0 26px; letter-spacing:-.5px;">از ایده خام<br>تا <span style="color:var(--accentText);">خروجی نهایی</span></h2>
+        <div data-about-rows style="display:flex; flex-direction:column; gap:12px; max-width:460px; margin-bottom:30px;"></div>
+        <p style="font-size:16px; line-height:2.1; color:var(--dim); margin:0 0 18px; max-width:520px;">طراح گرافیک و خالق محتوای بصری هستم. در پروژه‌ها طرحی می‌سازم که هم چشم‌نواز باشد و هم کاربردی؛ از طراحی هویت بصری و پوستر گرفته تا پست‌های شبکه اجتماعی، تبلیغات و ارائه‌های بصری.</p>
+        <p style="font-size:16px; line-height:2.1; color:var(--dim); margin:0; max-width:520px;">سبک کاری من ترکیبی از نظم، رنگ‌های مدرن، فضای دیجیتال، گلس‌مورفیسم و جزئیات تعاملی است.</p>
+      </div>
+    </section>
+
+    <!-- TOOLS -->
+    <section id="tools" style="padding:90px 0;">
+      <div data-reveal style="text-align:center; margin-bottom:54px;">
+        <div style="display:inline-flex; align-items:center; gap:10px; padding:8px 16px; border-radius:999px; background:var(--glass); border:1px solid var(--border); margin-bottom:22px;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m14.7 6.3 3 3M4 20l3.5-1 9-9a2.1 2.1 0 0 0-3-3l-9 9L4 20Z"/></svg>
+          <span style="font-size:13px; font-weight:800; color:var(--accentText);">نرم‌افزارها</span>
+        </div>
+        <h2 data-words style="font-size:46px; font-weight:800; margin:0 0 16px; letter-spacing:-.5px;">ابزارهایی برای ساخت <span style="color:var(--accentText);">تصویر حرفه‌ای</span></h2>
+        <p style="font-size:15px; color:var(--dim2); max-width:620px; margin:0 auto; line-height:1.9;">مهارت‌های نرم‌افزاری و ابزارهایی که برای طراحی، تدوین، مدل‌سازی و اجرای پروژه‌ها استفاده می‌کنم.</p>
+      </div>
+      <div data-tools-grid class="tools-grid" style="display:grid; grid-template-columns:repeat(4,1fr); gap:18px;"></div>
+    </section>
+
+    <!-- WORK -->
+    <section id="work" style="padding:90px 0;">
+      <div data-reveal style="text-align:center; margin-bottom:18px;">
+        <div style="display:inline-flex; align-items:center; gap:10px; padding:8px 16px; border-radius:999px; background:var(--glass); border:1px solid var(--border); margin-bottom:22px;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="m3 16 5-5 4 4 3-3 6 6"/><circle cx="8.5" cy="8.5" r="1.5"/></svg>
+          <span style="font-size:13px; font-weight:800; color:var(--accentText);">نمونه‌کارها</span>
+        </div>
+        <h2 data-words style="font-size:46px; font-weight:800; margin:0 0 14px; letter-spacing:-.5px;">پروژه‌های <span style="color:var(--accentText);">منتخب</span></h2>
+        <p style="font-size:15px; color:var(--dim2); margin:0;">روی هر نمونه‌کار کلیک کن تا جزئیات پروژه داخل پنجره بازشو نمایش داده شود.</p>
+      </div>
+      <div data-filters style="display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin:36px 0 40px;"></div>
+      <div data-work-grid class="work-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:24px;"></div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" style="padding:90px 0;">
+      <div data-reveal style="text-align:center; margin-bottom:50px;">
+        <div style="display:inline-flex; align-items:center; gap:10px; padding:8px 16px; border-radius:999px; background:var(--glass); border:1px solid var(--border); margin-bottom:22px;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 2.4 7.4H22l-6 4.5 2.3 7.1-6.3-4.6L5.7 21 8 14 2 9.4h7.6L12 2Z"/></svg>
+          <span style="font-size:13px; font-weight:800; color:var(--accentText);">خدمات</span>
+        </div>
+        <h2 data-words style="font-size:46px; font-weight:800; margin:0; letter-spacing:-.5px;">کارهایی که از من <span style="color:var(--accentText);">برمی‌آید</span></h2>
+      </div>
+      <div data-services-grid class="services-grid" style="display:grid; grid-template-columns:repeat(2,1fr); gap:20px;"></div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" style="padding:90px 0 70px;">
+      <div data-reveal class="contact-flex" style="display:flex; gap:48px; align-items:stretch;">
+        <div style="flex:0 0 380px; display:flex; flex-direction:column; justify-content:center;">
+          <div style="display:inline-flex; align-self:flex-start; align-items:center; gap:10px; padding:8px 16px; border-radius:999px; background:var(--glass); border:1px solid var(--border); margin-bottom:22px;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/></svg>
+            <span style="font-size:13px; font-weight:800; color:var(--accentText);">تماس</span>
+          </div>
+          <h2 data-words style="font-size:46px; font-weight:800; margin:0 0 22px; line-height:1.2; letter-spacing:-.5px;">بیایید با هم <span style="color:var(--accentText);">همکاری کنیم</span></h2>
+          <p style="font-size:16px; line-height:2; color:var(--dim); margin:0 0 34px;">ایده‌ای در ذهن داری؟ فرم را پر کن یا از راه‌های زیر در ارتباط باش. معمولاً کمتر از یک روز پاسخ می‌دهم.</p>
+          <div style="display:flex; flex-direction:column; gap:14px;">
+            <div style="display:flex; align-items:center; gap:14px;">
+              <span style="width:44px; height:44px; border-radius:14px; display:flex; align-items:center; justify-content:center; background:rgba(55,245,255,.12); border:1px solid rgba(55,245,255,.25);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>
+              <span style="font-size:15px; direction:ltr;">ali.fallahzadegan@email.com</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:14px;">
+              <span style="width:44px; height:44px; border-radius:14px; display:flex; align-items:center; justify-content:center; background:rgba(55,245,255,.12); border:1px solid rgba(55,245,255,.25);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.4 2.1L8 9.6a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.5 2.6.6a2 2 0 0 1 1.7 2Z"/></svg></span>
+              <span style="font-size:15px; direction:ltr;">+98 912 000 0000</span>
+            </div>
+          </div>
+        </div>
+        <div data-tilt style="flex:1; padding:38px 36px; border-radius:30px; background:var(--cardGrad); border:1px solid var(--border2); box-shadow:0 1px 0 var(--innerHi) inset,var(--shadow); backdrop-filter:blur(18px);">
+          <form data-contact-form style="display:flex; flex-direction:column; gap:18px;">
+            <input type="text" placeholder="نام و نام خانوادگی" style="width:100%; padding:16px 20px; border-radius:16px; background:var(--glass); border:1px solid var(--border); color:var(--text); font-family:Vazirmatn,sans-serif; font-size:15px; outline:none; transition:border-color .25s;">
+            <input type="text" placeholder="ایمیل یا راه ارتباطی" style="width:100%; padding:16px 20px; border-radius:16px; background:var(--glass); border:1px solid var(--border); color:var(--text); font-family:Vazirmatn,sans-serif; font-size:15px; outline:none; transition:border-color .25s;">
+            <input type="text" placeholder="موضوع پروژه" style="width:100%; padding:16px 20px; border-radius:16px; background:var(--glass); border:1px solid var(--border); color:var(--text); font-family:Vazirmatn,sans-serif; font-size:15px; outline:none; transition:border-color .25s;">
+            <textarea placeholder="توضیحات پروژه" rows="4" style="width:100%; padding:16px 20px; border-radius:16px; background:var(--glass); border:1px solid var(--border); color:var(--text); font-family:Vazirmatn,sans-serif; font-size:15px; outline:none; resize:vertical; transition:border-color .25s;"></textarea>
+            <button type="submit" data-magnetic class="shine" style="display:flex; align-items:center; justify-content:center; gap:10px; padding:17px; border-radius:16px; border:none; background:linear-gradient(135deg,var(--accent),var(--accent2)); color:#070914; font-family:Vazirmatn,sans-serif; font-size:16px; font-weight:800; box-shadow:0 10px 30px rgba(55,245,255,.32); cursor:pointer;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4Z"/></svg>
+              ارسال درخواست همکاری
+            </button>
+            <div data-form-msg style="display:none; font-size:14px; font-weight:700; color:var(--accentText); text-align:center;">پیام شما ثبت شد ✓ (نسخهٔ نمایشی)</div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer style="padding:46px 0 60px; margin-top:30px; border-top:1px solid var(--border);">
+      <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:40px; flex-wrap:wrap;">
+        <div style="max-width:360px;">
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+            <img src="assets/logo-brand.png" alt="Ali Fallah" style="width:42px; height:42px; border-radius:0; display:flex; align-items:center; justify-content:center; background:transparent; object-fit:contain;">
+            <span style="font-size:17px; font-weight:900;">علی فلاح زادگان</span>
+          </div>
+          <p style="font-size:14px; line-height:1.9; color:var(--dim2); margin:0;">طراح گرافیک و خالق محتوای بصری. ساخت هویت بصری، پوستر، محتوای شبکه‌های اجتماعی و تجربه‌های دیجیتال.</p>
+        </div>
+        <div style="display:flex; gap:60px; flex-wrap:wrap;">
+          <div>
+            <div style="font-size:14px; font-weight:800; color:var(--accentText); margin-bottom:16px;">پیمایش</div>
+            <div style="display:flex; flex-direction:column; gap:12px;">
+              <a href="#home" style="font-size:14px; color:var(--dim); text-decoration:none;">خانه</a>
+              <a href="#about" style="font-size:14px; color:var(--dim); text-decoration:none;">درباره من</a>
+              <a href="#work" style="font-size:14px; color:var(--dim); text-decoration:none;">نمونه کار</a>
+              <a href="#contact" style="font-size:14px; color:var(--dim); text-decoration:none;">تماس</a>
+            </div>
+          </div>
+          <div>
+            <div style="font-size:14px; font-weight:800; color:var(--accentText); margin-bottom:16px;">شبکه‌های اجتماعی</div>
+            <div data-socials style="display:flex; gap:12px;"></div>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:40px; padding-top:24px; border-top:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+        <span style="font-size:13px; color:var(--dim3);">© ۱۴۰۴ علی فلاح زادگان — تمامی حقوق محفوظ است.</span>
+        <span style="font-size:13px; color:var(--dim3); direction:ltr;">Designed with care · Tehran</span>
+      </div>
+    </footer>
+  </div>
+
+  <!-- BACK TO TOP -->
+  <button data-backtop title="بازگشت به بالا" style="position:fixed; left:34px; bottom:34px; z-index:500; width:58px; height:58px; border-radius:50%; border:none; background:var(--navBg); backdrop-filter:blur(14px); box-shadow:0 10px 30px rgba(0,0,0,.3); display:flex; align-items:center; justify-content:center; opacity:0; transform:translateY(20px); pointer-events:none; transition:opacity .4s, transform .4s;">
+    <svg width="58" height="58" viewBox="0 0 58 58" style="position:absolute; inset:0; transform:rotate(-90deg);">
+      <circle cx="29" cy="29" r="26" fill="none" stroke="var(--border)" stroke-width="3"/>
+      <circle data-progress-ring cx="29" cy="29" r="26" fill="none" stroke="url(#btgrad)" stroke-width="3" stroke-linecap="round" stroke-dasharray="163.36" stroke-dashoffset="163.36"/>
+      <defs><linearGradient id="btgrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#37F5FF"/><stop offset="1" stop-color="#B45CFF"/></linearGradient></defs>
+    </svg>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="position:relative;"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
+
+  <!-- LIGHTBOX -->
+  <div data-overlay style="position:fixed; inset:0; z-index:1000; display:flex; align-items:center; justify-content:center; padding:48px; background:rgba(4,6,16,.82); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); opacity:0; visibility:hidden; pointer-events:none; transition:opacity .38s ease, visibility .38s ease;">
+    <button data-lb-close class="lb-close" data-magnetic style="position:absolute; top:28px; left:28px; width:52px; height:52px; border-radius:16px; border:1px solid rgba(255,255,255,.16); background:rgba(255,255,255,.07); color:#fff; display:flex; align-items:center; justify-content:center; backdrop-filter:blur(12px); transition:all .25s;">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <div style="position:absolute; top:28px; right:28px; display:flex; align-items:center; gap:10px;">
+      <span style="padding:10px 16px; border-radius:14px; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.14); backdrop-filter:blur(12px); font-size:13px; font-weight:700; color:#fff;">گردش بین: <span data-scope-label style="color:#37F5FF;"></span></span>
+      <button data-lb-scope data-magnetic style="padding:10px 16px; border-radius:14px; border:1px solid rgba(55,245,255,.3); background:rgba(55,245,255,.12); color:#37F5FF; font-family:Vazirmatn,sans-serif; font-size:13px; font-weight:700; display:flex; align-items:center; gap:8px;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15-6.7L21 8M21 3v5h-5M21 12a9 9 0 0 1-15 6.7L3 16M3 21v-5h5"/></svg>
+        <span data-scope-toggle></span>
+      </button>
+    </div>
+    <button data-lb-prev class="lb-nav" style="position:absolute; right:28px; top:50%; transform:translateY(-50%); width:58px; height:58px; border-radius:50%; border:1px solid rgba(255,255,255,.16); background:rgba(255,255,255,.08); color:#fff; display:flex; align-items:center; justify-content:center; backdrop-filter:blur(12px); z-index:2;">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+    </button>
+    <button data-lb-next class="lb-nav" style="position:absolute; left:28px; top:50%; transform:translateY(-50%); width:58px; height:58px; border-radius:50%; border:1px solid rgba(255,255,255,.16); background:rgba(255,255,255,.08); color:#fff; display:flex; align-items:center; justify-content:center; backdrop-filter:blur(12px); z-index:2;">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <div data-lb-panel></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  // ---------------- DATA ----------------
+  var CATS = [
+    { key:"poster", label:"پوستر" },
+    { key:"branding", label:"برندینگ" },
+    { key:"social", label:"محتوای شبکه اجتماعی" },
+    { key:"motion", label:"موشن و ویدیو" },
+    { key:"threed", label:"سه‌بعدی" },
+    { key:"type", label:"تایپوگرافی" }
+  ];
+  var PROJECTS = [
+    { cat:"poster", img:"assets/work-lamiz.jpg", title:"پوستر قهوه لمیز", short:"پوستر تبلیغاتی برند قهوه لمیز با کانسپتی خلاقانه و فضای مینیمال.", desc:"طراحی پوستر برای برند قهوه لمیز با ایده ترکیب دانه‌های قهوه و فرم باتری به‌عنوان نماد انرژی. تمرکز روی نورپردازی گرم، فضای تمیز و تایپوگرافی ظریف برای انتقال حس کیفیت و انرژی محصول.", client:"قهوه لمیز", year:"۱۴۰۳", tools:["Photoshop","Illustrator"], tags:["Poster","Branding"], c1:"0d1530", c2:"37f5ff", label:"Lamiz" },
+    { cat:"social", img:"assets/work-surmelyna.jpg", title:"بنر تبلیغاتی ضدآفتاب سورملینا", short:"بنر محصول برای کرم ضدآفتاب سورملینا با فضایی روشن و تازه.", desc:"طراحی بنر تبلیغاتی برای کرم ضدآفتاب سورملینا با تمرکز روی نمایش محصول، رنگ‌بندی گرم نارنجی و فضای تابستانی. خروجی برای صفحه محصول و تبلیغات دیجیتال بهینه شد.", client:"سورملینا", year:"۱۴۰۳", tools:["Photoshop","Illustrator"], tags:["Banner","Product"], c1:"141a30", c2:"b45cff", label:"Surmelyna" },
+    { cat:"branding", img:"assets/work-baher.jpg", title:"بروشور گروه رسانه‌های باهر", short:"طراحی بروشور سه‌لت برای معرفی فعالیت‌های گروه رسانه‌های باهر.", desc:"طراحی بروشور سه‌لت برای گروه رسانه‌های باهر شامل معرفی دوره‌های ویژه مربیان و معلمان، فعالیت‌ها و راه‌های ارتباطی. ترکیب رنگ آبی برند، آیکون‌ها و چیدمان منظم اطلاعات.", client:"گروه رسانه‌های باهر", year:"۱۴۰۳", tools:["Illustrator","InDesign"], tags:["Brochure","Branding"], c1:"141a30", c2:"5a7cff", label:"Baher" },
+    { cat:"social", img:"assets/work-brazil.png", title:"بنر سایت تور برزیل", short:"بنر تبلیغاتی تور برزیل با فضایی پرانرژی و رنگ‌های گرم.", desc:"طراحی بنر سایت برای تور ویژه برزیل با ترکیب تصاویر طبیعت، فرهنگ و شادی. تمرکز روی تایپوگرافی فارسی و لاتین، رنگ‌بندی پرچم برزیل و حسی پرشور و سرزنده.", client:"آژانس گردشگری", year:"۱۴۰۳", tools:["Photoshop","Illustrator"], tags:["Banner","Travel"], c1:"0d1530", c2:"37f5ff", label:"Brazil" },
+    { cat:"social", img:"assets/work-japan.png", title:"بنر سایت تور ژاپن", short:"بنر تبلیغاتی تور ژاپن با فضایی فرهنگی و نظم بصری.", desc:"طراحی بنر سایت برای تور ویژه ژاپن و اکسپو با ترکیب تصاویر معماری مدرن و فرهنگ سنتی. تمرکز روی کنتراست قرمز و سفید، تایپوگرافی تمیز و حسی از نظم و هنر.", client:"آژانس گردشگری", year:"۱۴۰۳", tools:["Photoshop","Illustrator"], tags:["Banner","Travel"], c1:"141a30", c2:"37f5ff", label:"Japan" },
+    { cat:"branding", img:"assets/work-card.jpg", title:"طراحی مجموعه هویت ماهشام فارم", short:"لوگو، کارت ویزیت و نشان گذاری برند برای مزرعه و شرکت کشاورزی ماهشام.", desc:"طراحی سیستم برندینگ کامل برای شرکت کشاورزی ماهشام شامل لوگوی سه‌خطی خلاق، فناوری خط‌کشی شده و رنگ‌بندی طبیعی (نارنجی و سرمه‌ای). کارت ویزیت دولبی فارسی و لاتین، دیزاین شامل عناصر ماه و کشاورزی.", client:"مزرعه و شرکت کشاورزی ماهشام", year:"۱۴۰۲", tools:["Illustrator","Photoshop"], tags:["Branding","Identity"], c1:"0d1530", c2:"f4a460", label:"Mahsham" },
+    { cat:"poster", img:"assets/work-reels.jpg", title:"کاور ریلز برند پاپان کاپوس", short:"طراحی کاور ریلز اینستاگرام برای محصول ضد تعریق سورملینا.", desc:"طراحی کاور ریلز (حالت تاپ صفحه) برای سرویس ضد تعریق سورملینا برای شبکه اجتماعی. ترکیب رنگ‌های شاد (آبی و نارنجی)، تصویر محصول واقعی و متن فارسی و انگلیسی با حس تابستانی و تازگی.", client:"سورملینا", year:"۱۴۰۳", tools:["Photoshop","Illustrator"], tags:["Social","Product"], c1:"e8f5f9", c2:"ff7043", label:"Surmelyna Reels" },
+    { cat:"threed", img:"assets/work-3d.png", title:"رندر سه‌بعدی و تصویرسازی معماری", short:"مدل‌سازی و رندر سه‌بعدی معماری داخلی برای نمایشگاه و فضای تجاری.", desc:"طراحی و مدل‌سازی سه‌بعدی فضای نمایشگاهی با دیوار‌های فولاد قرمز، مبلمان مدرن و نورپردازی استودیویی. نمایش دقیق فضا برای اجرای پروژه واقعی، متریال‌های واقع‌گرایانه و کامپوزیشن حرفه‌ای.", client:"شرکت طراحی و اجرای فضا", year:"۱۴۰۳", tools:["Blender","V-Ray"], tags:["3D","Architecture"], c1:"f5f5f5", c2:"ff5252", label:"Space 3D" },
+    { cat:"branding", img:"assets/work-book.jpg", title:"طراحی جلد کتاب و سیستم تایپوگرافی", short:"جلد کتاب داستانی با ایلوسترشن و طراحی جلد‌بند متمایز.", desc:"طراحی جلد کتاب داستانی با یک کاراکتر ایلوسترشنی منحصر‌به‌فرد (شخصیت زرد)، رنگ‌بندی سیاه و زرد تندروست، و متن فارسی خوب‌ریخت. شامل طراحی کمربند کتاب، صفحه درونی و طراحی خطوط متون داخلی برای خوان‌پذیری.", client:"نشرخانه داستانی", year:"۱۴۰۲", tools:["Illustrator","InDesign"], tags:["Book","Typography"], c1:"1a1a1a", c2:"ffd700", label:"Book Design" },
+    { cat:"motion", img:"assets/work-farayad.jpg", title:"بنر معرفی فرایاد", short:"بنر و کاراکتر سه‌بعدی برای معرفی پلتفرم فرایاد.", desc:"طراحی بنر معرفی پلتفرم فرایاد با کاراکتر سه‌بعدی جغد به‌عنوان نماد برند. فضای روشن و دوستانه، تایپوگرافی شاد و دکمه پخش ویدیو برای جذب مخاطب و معرفی سرویس.", client:"فرایاد", year:"۱۴۰۳", tools:["Blender","After Effects"], tags:["Character","Motion"], c1:"1a1430", c2:"b45cff", label:"Farayad" },
+    { cat:"type", img:"assets/work-poster.jpg", title:"پوستر تایپوگرافی اسماءالحسنی", short:"پوستر مسابقه سالانه حروف‌نگاری با موضوع اسماءالحسنی.", desc:"طراحی پوستر چهاردهمین نمایشگاه سالانه حروف‌نگاری با موضوع اسماءالحسنی. ترکیب خط کوفی بنایی، رنگ‌بندی فیروزه‌ای و نارنجی و چیدمان مدرن اطلاعات رویداد.", client:"خانه هنرمندان ایران", year:"۱۴۰۲", tools:["Illustrator","Photoshop"], tags:["Typography","Poster"], c1:"1a1430", c2:"b45cff", label:"Asma" }
+  ];
+  var TOOLS = [
+    { name:"Photoshop", desc:"طراحی پوستر، ادیت تصویر، کاور و محتوای تبلیغاتی.", delay:0, fg:"#31A8FF" },
+    { name:"Illustrator", desc:"طراحی لوگو، وکتور، آیکون و هویت بصری.", delay:70, fg:"#FF9A00" },
+    { name:"After Effects", desc:"موشن گرافیک، انیمیشن و افکت‌های تبلیغاتی.", delay:140, fg:"#AEA1FF" },
+    { name:"Premiere Pro", desc:"تدوین ویدیو، کلیپ تبلیغاتی و شبکه اجتماعی.", delay:210, fg:"#EA77FF" },
+    { name:"Figma", desc:"طراحی رابط، سیستم طراحی و نمونه‌سازی سریع.", delay:0, fg:"#37F5FF" },
+    { name:"InDesign", desc:"صفحه‌آرایی، کاتالوگ، مجله و بروشور.", delay:70, fg:"#FF3366" },
+    { name:"Lightroom", desc:"اصلاح رنگ، ادیت و پردازش حرفه‌ای عکس.", delay:140, fg:"#6CC4FF" },
+    { name:"Blender", desc:"مدل‌سازی سه‌بعدی، رندر و آبجکت‌های بصری.", delay:210, fg:"#FF7A1A" }
+  ];
+  var STATS = [
+    { num:6, prefix:"+", label:"سال تجربه در طراحی گرافیک" },
+    { num:30, prefix:"+", label:"پروژه طراحی و محتوای بصری" },
+    { num:10, prefix:"+", label:"نرم‌افزار تخصصی طراحی" }
+  ];
+  var BRANDS = ["ARTA","NOOR STUDIO","LAMIZ","NOVA FEST","PIXEL","RACE","IDEH AGENCY","UFUGH"];
+  var SERVICES = [
+    { num:"01", title:"طراحی تبلیغاتی", img:"https://placehold.co/600x300/0d1530/37f5ff?text=Advertising", desc:"پوستر، بنر، کاتالوگ، بروشور و ست تبلیغاتی منسجم برای کمپین‌های دیجیتال و چاپی.", delay:0, icon:["M3 3h18v14H3zM3 21h18M8 17v4M16 17v4"] },
+    { num:"02", title:"محتوای شبکه اجتماعی", img:"https://placehold.co/600x300/141a30/5a7cff?text=Social+Media", desc:"طراحی قالب پست، استوری، کاور و ست محتوای یکپارچه برای رشد و نظم بصری برند.", delay:90, icon:["M4 4h16v16H4zM4 9h16M9 21V9"] },
+    { num:"03", title:"موشن و ویدیو", img:"https://placehold.co/600x300/1a1430/b45cff?text=Motion", desc:"ساخت تیزر، موشن گرافیک، کلیپ تبلیغاتی و ادیت محتوا برای شبکه‌های اجتماعی.", delay:0, icon:["m10 8 6 4-6 4V8ZM3 5h18v14H3z"] },
+    { num:"04", title:"طراحی هویت بصری", img:"https://placehold.co/600x300/0d1530/37f5ff?text=Branding", desc:"طراحی لوگو، سیستم رنگ، تایپوگرافی و راهنمای برند برای ساخت هویتی ماندگار.", delay:90, icon:["M12 2 2 7l10 5 10-5-10-5ZM2 17l10 5 10-5M2 12l10 5 10-5"] }
+  ];
+  var SOCIALS = [
+    { name:"Instagram", svg:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".9" fill="currentColor"/></svg>' },
+    { name:"Behance", svg:'<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8.2 6.5c1.4 0 2.4.3 3.1.9.6.5 1 1.3 1 2.3 0 .6-.2 1.1-.5 1.5-.2.3-.5.5-.9.7.6.2 1 .5 1.3.9.3.5.5 1 .5 1.7 0 1.1-.4 1.9-1.2 2.5-.7.5-1.7.7-3 .7H3V6.5h5.2Zm-.3 4.1c.5 0 .9-.1 1.2-.3.2-.2.4-.5.4-.9 0-.4-.2-.7-.5-.9-.3-.2-.7-.2-1.2-.2H5.4v2.3h2.5Zm.1 4.4c.6 0 1-.1 1.3-.3.3-.2.5-.6.5-1 0-.5-.2-.8-.5-1-.3-.2-.8-.3-1.3-.3H5.4v2.6h2.6ZM15 7.4h3.8v1.1H15V7.4Zm6 6.2h-5c0 .6.2 1 .5 1.3.3.3.7.4 1.2.4.4 0 .7-.1.9-.2.2-.1.4-.3.5-.6h1.8c-.3.9-.7 1.5-1.3 1.9-.6.4-1.3.6-2.1.6-1.2 0-2.1-.4-2.7-1.1-.6-.7-1-1.6-1-2.8 0-1.1.3-2 1-2.8.7-.7 1.5-1.1 2.6-1.1 1.1 0 2 .4 2.6 1.2.6.8.9 1.8.8 3.1Z"/></svg>' },
+    { name:"LinkedIn", svg:'<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2 2 0 1 1 0 4 2 2 0 0 1 0-4ZM3 9h4v12H3V9Zm6 0h3.8v1.7h.05c.53-.95 1.8-1.95 3.7-1.95 4 0 4.7 2.5 4.7 5.8V21H17v-5.3c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9V21H9V9Z"/></svg>' },
+    { name:"Telegram", svg:'<svg width="21" height="21" viewBox="0 0 24 24" fill="currentColor"><path d="M21.9 4.3 18.6 20c-.2 1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13 1.4 11.5c-1-.3-1-1 .2-1.5L20.6 2.8c.9-.3 1.6.2 1.3 1.5Z"/></svg>' }
+  ];
+  var ABOUT_ROWS = [
+    { k:"نام", v:"علی فلاح زادگان", vColor:"var(--text)", dir:"rtl", icon:["M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM5.5 21a8 8 0 0 1 13 0"] },
+    { k:"حوزه فعالیت", v:"Graphic Design", vColor:"var(--text)", dir:"ltr", icon:["m14.7 6.3 3 3M4 20l3.5-1 9-9a2.1 2.1 0 0 0-3-3l-9 9L4 20Z"] },
+    { k:"وضعیت", v:"پذیرش پروژه فعال", vColor:"var(--accentText)", dir:"rtl", icon:["M22 11.1V12a10 10 0 1 1-5.9-9.1M22 4 12 14l-3-3"] }
+  ];
+
+  // ---------------- HELPERS ----------------
+  var FA = "۰۱۲۳۴۵۶۷۸۹";
+  function faDigits(s){ return String(s).replace(/[0-9]/g, function(d){ return FA[+d]; }); }
+  function catLabel(k){ for(var i=0;i<CATS.length;i++){ if(CATS[i].key===k) return CATS[i].label; } return ""; }
+  function cover(p){ return p.img ? p.img : "https://placehold.co/600x420/"+p.c1+"/"+p.c2+"?text="+encodeURIComponent(p.label); }
+  function imgs(p){ if(p.img) return [p.img]; return [0,1,2].map(function(i){ return "https://placehold.co/900x620/"+p.c1+"/"+p.c2+"?text="+encodeURIComponent(p.label+" "+(i+1)); }); }
+  function ic(paths, o){
+    o = o || {}; var w=o.w||18, h=o.h||18, sw=o.sw||1.9, st=o.stroke||"currentColor";
+    var arr = Array.isArray(paths)?paths:[paths];
+    var p = arr.map(function(d){ return '<path d="'+d+'"/>'; }).join("");
+    return '<svg width="'+w+'" height="'+h+'" viewBox="0 0 24 24" fill="none" stroke="'+st+'" stroke-width="'+sw+'" stroke-linecap="round" stroke-linejoin="round">'+p+'</svg>';
+  }
+  function brandLogo(name){
+    var tile = function(bg, inner){ return '<svg width="58" height="58" viewBox="0 0 58 58" fill="none"><rect x="2" y="2" width="54" height="54" rx="14" fill="'+bg+'"/>'+inner+'</svg>'; };
+    var adobe = function(letters,bg,fg){ return tile(bg, '<rect x="5.5" y="5.5" width="47" height="47" rx="11" fill="none" stroke="'+fg+'" stroke-opacity="0.55" stroke-width="1.4"/><text x="29" y="37" text-anchor="middle" font-family="Georgia,\'Times New Roman\',serif" font-size="23" font-weight="700" fill="'+fg+'">'+letters+'</text>'); };
+    if(name==="Figma") return tile("#16161c", '<g transform="translate(20.5 15.5) scale(0.45)"><path fill="#1abcfe" d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z"/><path fill="#0acf83" d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 1 1-19 0z"/><path fill="#ff7262" d="M19 0v19h9.5a9.5 9.5 0 1 0 0-19H19z"/><path fill="#f24e1e" d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z"/><path fill="#a259ff" d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z"/></g>');
+    if(name==="Blender") return tile("#16161c", '<path fill="#2a5d86" d="M14 37c0-8 8-15 18-15 6 0 12 2 14 7-1 8-10 14-20 14-7 0-12-3-12-6z"/><circle cx="36" cy="24" r="11" fill="#ea7600"/><circle cx="36" cy="24" r="4.2" fill="#fff"/><circle cx="37" cy="25" r="2.1" fill="#16161c"/>');
+    var m = {
+      Photoshop:["Ps","#001E36","#31A8FF"], Illustrator:["Ai","#330000","#FF9A00"],
+      "After Effects":["Ae","#00005B","#9999FF"], "Premiere Pro":["Pr","#00005B","#EA77FF"],
+      InDesign:["Id","#49021F","#FF3366"], Lightroom:["Lr","#001D34","#31A8FF"]
+    }[name] || ["?","#222","#aaa"];
+    return adobe(m[0],m[1],m[2]);
+  }
+
+  // ---------------- STATE ----------------
+  var state = { active:-1, gallery:0, filter:"all", theme:"dark", scope:"category" };
+  var $ = function(sel, ctx){ return (ctx||document).querySelector(sel); };
+
+  function siblings(){
+    if(state.scope === "all") return PROJECTS.map(function(p,i){ return i; });
+    var cat = PROJECTS[state.active] ? PROJECTS[state.active].cat : null;
+    return PROJECTS.map(function(p,i){ return i; }).filter(function(i){ return PROJECTS[i].cat === cat; });
+  }
+
+  // ---------------- RENDER: static lists ----------------
+  function renderStats(){
+    $("[data-stats]").innerHTML = STATS.map(function(s){
+      return '<div data-tilt style="flex:1; padding:22px 20px; border-radius:22px; background:var(--glass); border:1px solid var(--border); backdrop-filter:blur(14px); transform-style:preserve-3d; transition:transform .25s cubic-bezier(.2,.7,.2,1);">'+
+        '<div data-count="'+s.num+'" data-prefix="'+s.prefix+'" style="font-size:40px; font-weight:800; line-height:1; margin-bottom:10px; color:var(--text);">'+s.prefix+'۰</div>'+
+        '<div style="font-size:13px; color:var(--dim2); line-height:1.6;">'+s.label+'</div></div>';
+    }).join("");
+  }
+  function renderMarquee(){
+    var one = BRANDS.map(function(b){
+      return '<span style="display:flex; align-items:center; gap:12px; margin-inline-start:60px; font-size:22px; font-weight:800; color:var(--dim2); white-space:nowrap; direction:ltr;"><span style="width:8px; height:8px; border-radius:50%; background:var(--accent);"></span>'+b+'</span>';
+    }).join("");
+    $("[data-marquee]").innerHTML = one + one;
+  }
+  function renderAboutRows(){
+    $("[data-about-rows]").innerHTML = ABOUT_ROWS.map(function(r){
+      return '<div style="display:flex; align-items:center; justify-content:space-between; padding:18px 22px; border-radius:18px; background:var(--glass); border:1px solid var(--border);">'+
+        '<span style="display:flex; align-items:center; gap:12px; font-size:15px; color:var(--dim2);">'+ic(r.icon,{w:16,h:16,stroke:"var(--accent)"})+r.k+'</span>'+
+        '<span style="font-size:16px; font-weight:700; color:'+r.vColor+'; direction:'+r.dir+';">'+r.v+'</span></div>';
+    }).join("");
+  }
+  function renderTools(){
+    $("[data-tools-grid]").innerHTML = TOOLS.map(function(t){
+      return '<div data-reveal data-reveal-delay="'+t.delay+'" data-tilt class="tool-card" style="--brand:'+t.fg+'; position:relative; padding:26px 24px; border-radius:26px; overflow:hidden; background:var(--cardGrad); border:1px solid var(--border2); box-shadow:0 1px 0 var(--innerHi) inset,var(--shadow); backdrop-filter:blur(18px); transform-style:preserve-3d;">'+
+        '<div class="tool-brandglow" style="position:absolute; right:-30px; top:-30px; width:160px; height:160px; border-radius:50%; background:radial-gradient(circle, var(--brand,#37F5FF), transparent 68%); filter:blur(26px); pointer-events:none; z-index:0;"></div>'+
+        '<div class="tool-spot" style="position:absolute; inset:0; z-index:1; pointer-events:none; background:radial-gradient(200px circle at var(--mx,50%) var(--my,50%), color-mix(in srgb, var(--brand,#37F5FF) 22%, transparent), transparent 70%);"></div>'+
+        '<div style="position:relative; z-index:2;">'+
+          '<div class="tool-logo" style="width:58px; height:58px; margin-bottom:20px; display:flex; align-items:center; justify-content:center;">'+brandLogo(t.name)+'</div>'+
+          '<div style="font-size:18px; font-weight:700; margin-bottom:10px; direction:ltr; text-align:right;">'+t.name+'</div>'+
+          '<div style="font-size:13px; line-height:1.9; color:var(--dim2);">'+t.desc+'</div>'+
+        '</div></div>';
+    }).join("");
+  }
+  function renderServices(){
+    $("[data-services-grid]").innerHTML = SERVICES.map(function(sv){
+      return '<div data-reveal data-reveal-delay="'+sv.delay+'" data-tilt class="svc-card" style="position:relative; border-radius:28px; overflow:hidden; background:var(--cardGrad); border:1px solid var(--border2); box-shadow:0 1px 0 var(--innerHi) inset,var(--shadow); backdrop-filter:blur(18px); transform-style:preserve-3d;">'+
+        '<div style="position:relative; height:180px; overflow:hidden;">'+
+          '<img class="svc-img" src="'+sv.img+'" alt="'+sv.title+'" style="width:100%; height:100%; object-fit:cover; display:block;">'+
+          '<div style="position:absolute; inset:0; background:linear-gradient(180deg,rgba(7,9,20,.1) 30%,rgba(7,9,20,.82) 100%);"></div>'+
+          '<div style="position:absolute; top:18px; right:18px; width:52px; height:52px; border-radius:16px; display:flex; align-items:center; justify-content:center; background:rgba(7,9,20,.5); border:1px solid rgba(55,245,255,.3); backdrop-filter:blur(10px); color:#37F5FF;">'+ic(sv.icon,{w:24,h:24})+'</div>'+
+          '<span style="position:absolute; left:20px; bottom:14px; font-size:42px; font-weight:900; color:rgba(255,255,255,.18); direction:ltr; line-height:1;">'+sv.num+'</span>'+
+        '</div>'+
+        '<div style="padding:28px 30px 32px;"><h3 style="font-size:24px; font-weight:800; margin:0 0 14px;">'+sv.title+'</h3>'+
+        '<p style="font-size:15px; line-height:2; color:var(--dim); margin:0;">'+sv.desc+'</p></div></div>';
+    }).join("");
+  }
+  function renderSocials(){
+    $("[data-socials]").innerHTML = SOCIALS.map(function(so){
+      return '<a href="#" title="'+so.name+'" data-magnetic class="social-link" style="width:46px; height:46px; border-radius:14px; display:flex; align-items:center; justify-content:center; background:var(--glass); border:1px solid var(--border); color:var(--text);">'+so.svg+'</a>';
+    }).join("");
+  }
+  function renderFilters(){
+    var list = [{ key:"all", label:"همه" }].concat(CATS);
+    $("[data-filters]").innerHTML = list.map(function(f){
+      var count = f.key==="all" ? PROJECTS.length : PROJECTS.filter(function(p){ return p.cat===f.key; }).length;
+      var on = state.filter===f.key;
+      return '<button data-filter="'+f.key+'" class="filter-btn" data-magnetic style="display:inline-flex; align-items:center; gap:8px; padding:11px 22px; border-radius:999px; border:1px solid '+(on?"rgba(55,245,255,.5)":"var(--border)")+'; background:'+(on?"rgba(55,245,255,.14)":"var(--glass)")+'; color:'+(on?"var(--accentText)":"var(--dim)")+'; font-family:Vazirmatn,sans-serif; font-size:14px; font-weight:700; cursor:pointer;">'+
+        f.label+'<span style="font-size:11px; opacity:.7; direction:ltr;">'+faDigits(count)+'</span></button>';
+    }).join("");
+    $("[data-filters]").querySelectorAll("[data-filter]").forEach(function(btn){
+      btn.addEventListener("click", function(){ state.filter = btn.getAttribute("data-filter"); renderFilters(); renderWork(); });
+    });
+  }
+  function renderWork(){
+    var shown = PROJECTS.map(function(p,i){ return { p:p, i:i }; }).filter(function(o){ return state.filter==="all" || o.p.cat===state.filter; });
+    $("[data-work-grid]").innerHTML = shown.map(function(o, idx){
+      var p = o.p;
+      var tags = p.tags.map(function(tg){ return '<span style="padding:7px 14px; border-radius:999px; background:var(--glass2); border:1px solid var(--border); font-size:12px; color:var(--dim); direction:ltr;">'+tg+'</span>'; }).join("");
+      return '<div data-open="'+o.i+'" class="work-card" data-tilt data-reveal data-reveal-delay="'+((idx%3)*90)+'" style="position:relative; border-radius:30px; overflow:hidden; background:var(--cardGrad); border:1px solid var(--border2); box-shadow:0 1px 0 var(--innerHi) inset,var(--shadow); backdrop-filter:blur(18px); transform-style:preserve-3d; cursor:pointer;">'+
+        '<div class="wc-spot" style="position:absolute; inset:0; z-index:3; pointer-events:none; background:radial-gradient(220px circle at var(--mx,50%) var(--my,50%),rgba(55,245,255,.16),transparent 70%);"></div>'+
+        '<div style="position:relative; height:230px; overflow:hidden;">'+
+          '<img class="wc-img" src="'+cover(p)+'" alt="'+p.title+'" style="width:100%; height:100%; object-fit:cover; display:block;">'+
+          '<div style="position:absolute; inset:0; background:linear-gradient(180deg,rgba(7,9,20,0) 35%,rgba(7,9,20,.72) 100%);"></div>'+
+          '<div style="position:absolute; top:16px; right:16px; padding:7px 14px; border-radius:999px; background:rgba(7,9,20,.55); border:1px solid rgba(255,255,255,.16); backdrop-filter:blur(10px); font-size:12px; font-weight:700; color:#37F5FF;">'+catLabel(p.cat)+'</div>'+
+          '<div class="wc-view" style="position:absolute; left:16px; bottom:16px; display:flex; align-items:center; gap:8px; padding:11px 18px; border-radius:999px; background:linear-gradient(135deg,#37F5FF,#5A7CFF); color:#070914; font-size:13px; font-weight:800; box-shadow:0 8px 24px rgba(55,245,255,.4);">'+
+            '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg>مشاهده پروژه</div>'+
+        '</div>'+
+        '<div style="padding:22px 24px 26px;"><h3 style="font-size:20px; font-weight:700; margin:0 0 10px;">'+p.title+'</h3>'+
+        '<p style="font-size:13px; line-height:1.9; color:var(--dim2); margin:0 0 18px; min-height:50px;">'+p.short+'</p>'+
+        '<div style="display:flex; gap:8px; flex-wrap:wrap;">'+tags+'</div></div></div>';
+    }).join("");
+    $("[data-work-grid]").querySelectorAll("[data-open]").forEach(function(card){
+      card.addEventListener("click", function(){ openModal(parseInt(card.getAttribute("data-open"),10)); });
+      card.setAttribute("data-revealed","1");
+    });
+    if(App._attachTilt) App._attachTilt();
+    if(App._attachMag) App._attachMag();
+  }
+
+  // ---------------- LIGHTBOX ----------------
+  var overlay = $("[data-overlay]");
+  function renderLightbox(){
+    var open = state.active >= 0;
+    overlay.style.opacity = open ? "1" : "0";
+    overlay.style.visibility = open ? "visible" : "hidden";
+    overlay.style.pointerEvents = open ? "auto" : "none";
+    var sib = open ? siblings() : [];
+    var sibPos = open ? sib.indexOf(state.active) : 0;
+    $("[data-scope-label]").textContent = state.scope==="category" ? (PROJECTS[state.active]?catLabel(PROJECTS[state.active].cat):"این دسته") : "همه دسته‌ها";
+    $("[data-scope-toggle]").textContent = state.scope==="category" ? "گردش در همه" : "فقط همین دسته";
+    if(!open){ $("[data-lb-panel]").innerHTML = ""; return; }
+    var p = PROJECTS[state.active];
+    var ims = imgs(p);
+    var thumbs = ims.map(function(src,i){
+      return '<div data-gal="'+i+'" style="flex:1; height:64px; border-radius:12px; overflow:hidden; border:2px solid '+(i===state.gallery?"#37F5FF":"rgba(255,255,255,0.12)")+'; transition:border-color .25s; opacity:'+(i===state.gallery?"1":"0.55")+'; cursor:pointer;"><img src="'+src+'" alt="" style="width:100%; height:100%; object-fit:cover; display:block;"></div>';
+    }).join("");
+    var tools = p.tools.map(function(tl){ return '<span style="padding:9px 16px; border-radius:12px; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.12); font-size:13px; font-weight:600; direction:ltr;">'+tl+'</span>'; }).join("");
+    $("[data-lb-panel]").innerHTML =
+      '<div class="lightbox-panel" style="width:100%; max-width:1080px; max-height:86vh; display:flex; gap:0; border-radius:30px; overflow:hidden; background:linear-gradient(135deg,rgba(22,26,48,.97) 0%,rgba(12,16,34,.97) 100%); border:1px solid rgba(255,255,255,.16); box-shadow:0 40px 120px rgba(0,0,0,.6); animation:popIn .42s cubic-bezier(.2,.8,.2,1);">'+
+        '<div style="flex:1.25; position:relative; background:#070914; display:flex; flex-direction:column;">'+
+          '<div style="flex:1; position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center; min-height:340px;">'+
+            '<img src="'+ims[state.gallery]+'" alt="'+p.title+'" style="width:100%; height:100%; max-height:62vh; object-fit:contain; display:block;">'+
+            '<div style="position:absolute; top:18px; right:18px; padding:7px 16px; border-radius:999px; background:rgba(7,9,20,.6); border:1px solid rgba(255,255,255,.14); backdrop-filter:blur(10px); font-size:13px; font-weight:700; color:#fff; direction:ltr;">'+faDigits(sibPos+1)+' / '+faDigits(sib.length)+'</div>'+
+          '</div>'+
+          (ims.length>1 ? '<div style="display:flex; gap:10px; padding:14px 16px; background:rgba(7,9,20,.4);">'+thumbs+'</div>' : '')+
+        '</div>'+
+        '<div style="flex:1; padding:38px 36px; overflow-y:auto; display:flex; flex-direction:column; color:#fff;">'+
+          '<div style="display:flex; align-items:center; gap:10px; margin-bottom:18px;"><span style="padding:7px 14px; border-radius:999px; background:rgba(55,245,255,.12); border:1px solid rgba(55,245,255,.3); font-size:12px; font-weight:700; color:#37F5FF;">'+catLabel(p.cat)+'</span></div>'+
+          '<h2 style="font-size:32px; font-weight:800; margin:0 0 22px; line-height:1.3;">'+p.title+'</h2>'+
+          '<p style="font-size:15px; line-height:2.1; color:rgba(255,255,255,.74); margin:0 0 30px;">'+p.desc+'</p>'+
+          '<div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:30px;">'+
+            '<div style="padding:16px 18px; border-radius:16px; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1);"><div style="display:flex; align-items:center; gap:8px; font-size:12px; color:rgba(255,255,255,.5); margin-bottom:6px;">'+ic(["M3 21h18M5 21V7l7-4 7 4v14M9 9h.01M9 13h.01M9 17h.01M15 9h.01M15 13h.01M15 17h.01"],{w:13,h:13,stroke:"#37F5FF",sw:2})+'کارفرما</div><div style="font-size:15px; font-weight:700;">'+p.client+'</div></div>'+
+            '<div style="padding:16px 18px; border-radius:16px; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1);"><div style="display:flex; align-items:center; gap:8px; font-size:12px; color:rgba(255,255,255,.5); margin-bottom:6px;">'+ic(["M3 4h18v18H3zM16 2v4M8 2v4M3 10h18"],{w:13,h:13,stroke:"#37F5FF",sw:2})+'سال</div><div style="font-size:15px; font-weight:700;">'+p.year+'</div></div>'+
+          '</div>'+
+          '<div style="display:flex; align-items:center; gap:8px; font-size:13px; font-weight:800; color:#37F5FF; margin-bottom:14px;">'+ic(["m14.7 6.3 3 3M4 20l3.5-1 9-9a2.1 2.1 0 0 0-3-3l-9 9L4 20Z"],{w:14,h:14,sw:2})+'ابزارهای استفاده‌شده</div>'+
+          '<div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:auto;">'+tools+'</div>'+
+          '<button data-lb-live style="display:flex; align-items:center; justify-content:center; gap:10px; margin-top:30px; padding:15px; border-radius:14px; border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.06); color:#fff; font-family:Vazirmatn,sans-serif; font-size:15px; font-weight:700; cursor:pointer;">'+
+            '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>مشاهده پروژه زنده</button>'+
+        '</div>'+
+      '</div>';
+    var panel = $(".lightbox-panel");
+    panel.addEventListener("click", function(e){ e.stopPropagation(); });
+    panel.querySelectorAll("[data-gal]").forEach(function(t){
+      t.addEventListener("click", function(e){ e.stopPropagation(); state.gallery = parseInt(t.getAttribute("data-gal"),10); renderLightbox(); });
+    });
+    $("[data-lb-live]").addEventListener("click", function(e){ e.stopPropagation(); closeModal(); });
+  }
+  function openModal(i){ document.body.style.overflow="hidden"; state.active=i; state.gallery=0; renderLightbox(); }
+  function closeModal(){ document.body.style.overflow=""; state.active=-1; renderLightbox(); }
+  function step(d){ var sib=siblings(); var pos=sib.indexOf(state.active); state.active=sib[(pos+d+sib.length)%sib.length]; state.gallery=0; renderLightbox(); }
+  function toggleScope(){ state.scope = state.scope==="category" ? "all" : "category"; renderLightbox(); }
+  function toggleTheme(){
+    state.theme = state.theme==="dark" ? "light" : "dark";
+    $("#root").setAttribute("data-theme", state.theme);
+    renderThemeIcon(); renderTools(); renderWork(); renderServices(); renderSocials(); renderAboutRows();
+  }
+  function renderThemeIcon(){
+    var btn = $("[data-theme-toggle]");
+    btn.innerHTML = state.theme==="dark"
+      ? ic(["M12 3v2M12 19v2M5 12H3M21 12h-2M5.6 5.6 7 7M17 17l1.4 1.4M18.4 5.6 17 7M7 17l-1.4 1.4"],{w:18,h:18,sw:2})
+      : ic("M21 12.8A8.5 8.5 0 1 1 11.2 3 6.6 6.6 0 0 0 21 12.8Z",{w:18,h:18,sw:2});
+  }
+
+  // ---------------- INTERACTIONS ----------------
+  var App = {};
+
+  function animateCount(el){
+    if(el._done) return; el._done = true;
+    var target = parseFloat(el.getAttribute("data-count"))||0;
+    var prefix = el.getAttribute("data-prefix")||"";
+    var dur=1400, start=performance.now();
+    function tick(now){
+      var p = Math.min((now-start)/dur, 1);
+      var e = 1 - Math.pow(1-p, 3);
+      el.textContent = prefix + faDigits(Math.round(target*e));
+      if(p<1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+  function revealWords(el){
+    function fire(units){ units.forEach(function(u,i){ setTimeout(function(){ u.style.opacity="1"; u.style.transform="none"; }, 90+i*60); }); }
+    if(el._wordsInit){ fire(el._wordUnits||[]); return; }
+    el._wordsInit = true;
+    var units = [];
+    Array.prototype.slice.call(el.childNodes).forEach(function(node){
+      if(node.nodeType===3){
+        var parts = node.textContent.split(/(\s+)/);
+        var frag = document.createDocumentFragment();
+        parts.forEach(function(p){
+          if(!p) return;
+          if(!p.trim()){ frag.appendChild(document.createTextNode(p)); return; }
+          var s = document.createElement("span");
+          s.textContent = p; s.style.display="inline-block"; s.style.opacity="0";
+          s.style.transform="translateY(20px)"; s.style.transition="opacity .55s ease, transform .55s cubic-bezier(.2,.7,.2,1)";
+          frag.appendChild(s); units.push(s);
+        });
+        node.replaceWith(frag);
+      } else if(node.nodeType===1 && node.nodeName!=="BR"){
+        node.style.display="inline-block"; node.style.opacity="0";
+        node.style.transform="translateY(20px)"; node.style.transition="opacity .55s ease, transform .55s cubic-bezier(.2,.7,.2,1)";
+        units.push(node);
+      }
+    });
+    el._wordUnits = units; fire(units);
+  }
+
+  function setupReveal(){
+    if(!("IntersectionObserver" in window)){
+      document.querySelectorAll("[data-reveal]").forEach(function(el){ el.setAttribute("data-revealed","1"); });
+      document.querySelectorAll("[data-count]").forEach(animateCount);
+      document.querySelectorAll("[data-words]").forEach(revealWords);
+      return;
+    }
+    var io = new IntersectionObserver(function(ents){
+      ents.forEach(function(en){
+        if(en.isIntersecting){
+          var el = en.target;
+          var d = parseInt(el.getAttribute("data-reveal-delay")||"0",10);
+          setTimeout(function(){ el.setAttribute("data-revealed","1"); }, d);
+          el.querySelectorAll("[data-count]").forEach(animateCount);
+          if(el.hasAttribute("data-words")) revealWords(el); else el.querySelectorAll("[data-words]").forEach(revealWords);
+          io.unobserve(el);
+        }
+      });
+    }, { threshold:0.1, rootMargin:"0px 0px -6% 0px" });
+    App._scanReveal = function(){ document.querySelectorAll("[data-reveal]:not([data-observed])").forEach(function(el){ el.setAttribute("data-observed","1"); io.observe(el); }); };
+    App._scanReveal();
+
+    // scroll fallback: reveal anything already within the viewport, regardless of the observer
+    var revealInView = function(){
+      var vh = window.innerHeight;
+      document.querySelectorAll("[data-reveal]:not([data-revealed])").forEach(function(el){
+        var r = el.getBoundingClientRect();
+        if(r.top < vh + 120 && r.bottom > -120){
+          el.setAttribute("data-revealed","1");
+          el.querySelectorAll("[data-count]").forEach(animateCount);
+          if(el.hasAttribute("data-words")) revealWords(el); else el.querySelectorAll("[data-words]").forEach(revealWords);
+        }
+      });
+    };
+    App._revealInView = revealInView;
+    window.addEventListener("scroll", revealInView, { passive:true });
+    window.addEventListener("resize", revealInView);
+    revealInView();
+
+    // hard fallback: make sure nothing ever stays invisible
+    setTimeout(function(){
+      document.querySelectorAll("[data-reveal]").forEach(function(el){ el.setAttribute("data-revealed","1"); });
+      document.querySelectorAll("[data-count]").forEach(animateCount);
+      document.querySelectorAll("[data-words]").forEach(revealWords);
+    }, 3000);
+  }
+
+  function setupHeroLines(){
+    document.querySelectorAll("[data-line]").forEach(function(l){
+      var d = parseInt(l.getAttribute("data-line-delay")||"0",10);
+      l.style.transform="translateY(110%)";
+      l.style.transition="transform .9s cubic-bezier(.2,.8,.2,1)";
+      setTimeout(function(){ l.style.transform="translateY(0)"; }, 300+d);
+    });
+  }
+
+  function setupCursor(){
+    var ring = $("[data-cursor-ring]"), dot = $("[data-cursor-dot]"), fill = $("[data-cursor-fill]"), layer = $("[data-parallax-layer]");
+    if(!ring || !dot) return;
+    var mx=innerWidth/2, my=innerHeight/2, rx=mx, ry=my, dx=mx, dy=my;
+    var vis=false, scale=1, curScale=1, down=0, curDown=0, hovering=false;
+    var prx=mx, pry=my, speed=0, curStretch=0, ang=0;
+    App._mxN=0; App._myN=0;
+    function show(){ if(!vis){ vis=true; ring.style.opacity="1"; dot.style.opacity="1"; } }
+    window.addEventListener("mousemove", function(e){
+      mx=e.clientX; my=e.clientY; show();
+      var t=e.target;
+      var interactive = t.closest && t.closest("a,button,[data-tilt],input,textarea,[data-open]");
+      var was=hovering; hovering=!!interactive;
+      if(hovering!==was){
+        scale = hovering?1.7:1;
+        if(fill) fill.style.transform = hovering?"scale(1)":"scale(0)";
+        if(hovering){ dot.style.width="0px"; dot.style.height="0px"; dot.style.margin="0"; }
+        else { dot.style.width="6px"; dot.style.height="6px"; dot.style.margin="-3px 0 0 -3px"; }
+      }
+      App._mxN=(e.clientX/innerWidth)-0.5; App._myN=(e.clientY/innerHeight)-0.5;
+    });
+    window.addEventListener("mousedown", function(){ down=1; });
+    window.addEventListener("mouseup", function(){ down=0; });
+    var lgx=0, lgy=0;
+    (function loop(){
+      rx+=(mx-rx)*0.2; ry+=(my-ry)*0.2;
+      dx+=(mx-dx)*0.42; dy+=(my-dy)*0.42;
+      // gentle velocity-based stretch along travel direction (subtle, elegant)
+      var vx=rx-prx, vy=ry-pry; prx=rx; pry=ry;
+      var sp=Math.min(Math.sqrt(vx*vx+vy*vy), 55);
+      speed+=(sp-speed)*0.2;
+      if(sp>0.5) ang=Math.atan2(vy,vx)*180/Math.PI;
+      curStretch+=((speed/55)-curStretch)*0.2;
+      curScale+=(scale-curScale)*0.16; curDown+=(down-curDown)*0.25;
+      var base=curScale*(1-curDown*0.2);
+      var st=curStretch*(hovering?0.12:0.34);
+      var sx=(base*(1+st)).toFixed(3), sy=(base*(1-st*0.6)).toFixed(3);
+      ring.style.transform="translate("+rx.toFixed(2)+"px,"+ry.toFixed(2)+"px) rotate("+ang.toFixed(1)+"deg) scale("+sx+","+sy+")";
+      dot.style.transform="translate("+dx.toFixed(2)+"px,"+dy.toFixed(2)+"px)";
+      if(layer){ var tgx=App._mxN*-26, tgy=App._myN*-26; lgx+=(tgx-lgx)*0.05; lgy+=(tgy-lgy)*0.05; layer.style.transform="translate("+lgx.toFixed(1)+"px,"+lgy.toFixed(1)+"px)"; }
+      requestAnimationFrame(loop);
+    })();
+    document.addEventListener("mouseleave", function(){ vis=false; ring.style.opacity="0"; dot.style.opacity="0"; });
+  }
+
+  // Magnetic (cursor-follow) effect intentionally disabled — buttons stay fixed in place.
+  function setupMagnetic(){
+    App._attachMag = function(){};
+  }
+
+  function setupTilt(){
+    function attach(){
+      document.querySelectorAll("[data-tilt]:not([data-tilt-on])").forEach(function(el){
+        el.setAttribute("data-tilt-on","1");
+        var spot = el.querySelector(".wc-spot, .tool-spot");
+        var trX=0, trY=0, trZ=0, cX=0, cY=0, cZ=0, raf=null, active=false;
+        function render(){
+          cX+=(trX-cX)*0.12; cY+=(trY-cY)*0.12; cZ+=(trZ-cZ)*0.12;
+          el.style.transform="perspective(1100px) rotateX("+cX.toFixed(2)+"deg) rotateY("+cY.toFixed(2)+"deg) translateY("+cZ.toFixed(2)+"px)";
+          if(active || Math.abs(trX-cX)>0.02 || Math.abs(trY-cY)>0.02 || Math.abs(trZ-cZ)>0.02) raf=requestAnimationFrame(render);
+          else { raf=null; el.style.transform=""; }
+        }
+        function start(){ if(!raf) raf=requestAnimationFrame(render); }
+        el.addEventListener("mouseenter", function(){ active=true; });
+        el.addEventListener("mousemove", function(e){
+          var r=el.getBoundingClientRect(); var px=(e.clientX-r.left)/r.width, py=(e.clientY-r.top)/r.height;
+          trY=(px-0.5)*6; trX=(0.5-py)*6; trZ=-5;
+          if(spot){ spot.style.setProperty("--mx",(px*100)+"%"); spot.style.setProperty("--my",(py*100)+"%"); }
+          start();
+        });
+        el.addEventListener("mouseleave", function(){ active=false; trX=0; trY=0; trZ=0; start(); });
+      });
+    }
+    App._attachTilt = attach; attach();
+  }
+
+  function setupSmooth(){
+    var target=window.scrollY, cur=target, running=false, prog=false;
+    function max(){ return document.documentElement.scrollHeight - window.innerHeight; }
+    function clamp(v){ return Math.max(0, Math.min(max(), v)); }
+    function tick(){
+      cur += (target-cur)*0.18;
+      if(Math.abs(target-cur)<0.4){ cur=target; running=false; }
+      prog=true; window.scrollTo(0, cur); prog=false;
+      if(running) requestAnimationFrame(tick);
+    }
+    function start(){ if(!running){ running=true; requestAnimationFrame(tick); } }
+    window.addEventListener("wheel", function(e){
+      if(state.active>=0) return; if(e.ctrlKey) return;
+      e.preventDefault();
+      var d=e.deltaY; if(e.deltaMode===1) d*=16; else if(e.deltaMode===2) d*=window.innerHeight;
+      target=clamp(target+d); start();
+    }, { passive:false });
+    window.addEventListener("scroll", function(){ if(!prog && !running){ target=cur=window.scrollY; } }, { passive:true });
+    document.addEventListener("click", function(e){
+      var a = e.target.closest && e.target.closest('a[href^="#"]');
+      if(!a) return;
+      var id=a.getAttribute("href"); if(!id || id.length<2) return;
+      var el=document.querySelector(id); if(!el) return;
+      e.preventDefault(); target=clamp(el.getBoundingClientRect().top+window.scrollY-90); start();
+    });
+    App._smoothTo = function(y){ target=clamp(y); start(); };
+  }
+
+  function setupScrollFx(){
+    var btn=$("[data-backtop]"), ring=$("[data-progress-ring]"), bar=$("[data-progress-bar]");
+    var circ=163.36;
+    function fx(){
+      var y=window.scrollY, mx=document.documentElement.scrollHeight-window.innerHeight, p=mx>0?y/mx:0;
+      if(bar) bar.style.width=(p*100).toFixed(2)+"%";
+      if(ring) ring.style.strokeDashoffset=(circ-circ*p).toFixed(1);
+      if(btn){ if(y>600){ btn.style.opacity="1"; btn.style.transform="translateY(0)"; btn.style.pointerEvents="auto"; } else { btn.style.opacity="0"; btn.style.transform="translateY(20px)"; btn.style.pointerEvents="none"; } }
+      document.querySelectorAll("[data-parallax-layer] [data-depth]").forEach(function(l){ var d=parseFloat(l.getAttribute("data-depth"))||0; l.style.marginTop=(-(y*d)).toFixed(1)+"px"; });
+    }
+    window.addEventListener("scroll", fx, { passive:true });
+    fx();
+    if(btn) btn.addEventListener("click", function(){ if(App._smoothTo) App._smoothTo(0); else window.scrollTo({ top:0, behavior:"smooth" }); });
+  }
+
+  // ---------------- WIRE & INIT ----------------
+  function init(){
+    renderThemeIcon(); renderStats(); renderMarquee(); renderAboutRows();
+    renderTools(); renderFilters(); renderWork(); renderServices(); renderSocials();
+    renderLightbox();
+
+    $("[data-theme-toggle]").addEventListener("click", toggleTheme);
+    overlay.addEventListener("click", closeModal);
+    $("[data-lb-close]").addEventListener("click", function(e){ e.stopPropagation(); closeModal(); });
+    $("[data-lb-prev]").addEventListener("click", function(e){ e.stopPropagation(); step(1); });
+    $("[data-lb-next]").addEventListener("click", function(e){ e.stopPropagation(); step(-1); });
+    $("[data-lb-scope]").addEventListener("click", function(e){ e.stopPropagation(); toggleScope(); });
+    window.addEventListener("keydown", function(e){
+      if(state.active<0) return;
+      if(e.key==="Escape") closeModal();
+      else if(e.key==="ArrowLeft") step(1);
+      else if(e.key==="ArrowRight") step(-1);
+    });
+    var form = $("[data-contact-form]");
+    if(form) form.addEventListener("submit", function(e){ e.preventDefault(); $("[data-form-msg]").style.display="block"; form.reset(); });
+
+    var fine = window.matchMedia("(pointer:fine)").matches;
+    var reduce = window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+    setupReveal();
+    setupHeroLines();
+    if(fine) setupCursor();
+    if(fine && !reduce){ setupMagnetic(); setupTilt(); setupSmooth(); }
+    else { setupMagnetic(); setupTilt(); }
+    setupScrollFx();
+
+    // re-scan reveal after dynamic content rendered
+    if(App._scanReveal) App._scanReveal();
+  }
+
+  window.App = App;
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded", init);
+  else init();
+})();
+</script>
+</body>
+</html>
